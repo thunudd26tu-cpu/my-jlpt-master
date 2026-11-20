@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY JLPT MASTER 🌸</title>
+<style>
+:root {
+  --pink:#f5dceb; --mint:#cbe5ce; --yellow:#f2f1b2;
+  --blue:#d5eaf4; --cream:#fffdf5; --purple:#806582;
+  --ink:#554d59; --muted:#998b99; --white:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);
+font-family:"Trebuchet MS",Arial,sans-serif}
+button,select{font:inherit;cursor:pointer}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#f8eaf1;padding:25px 16px;flex-shrink:0}
+.logo{font-size:23px;font-weight:900;color:#906b87;line-height:1.3}
+.logo small{display:block;font-size:10px;letter-spacing:2px;margin-top:5px}
+.nav-title{font-size:10px;letter-spacing:1.5px;color:#a78da0;
+font-weight:bold;margin:25px 10px 8px}
+.nav{width:100%;border:0;background:transparent;color:#706272;
+padding:11px 12px;border-radius:12px;text-align:left;margin:2px 0}
+.nav:hover,.nav.active{background:white;color:#906b87;font-weight:bold}
+.main{flex:1;min-width:0;padding:28px;max-width:1500px;margin:auto;width:100%}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:24px}
+h1{font-size:25px;color:#6e5874;margin:5px 0}
+h2{font-size:22px;margin:0 0 8px;color:#705c75}
+h3{font-size:16px;color:#705c75}
+.muted{font-size:12px;color:var(--muted);line-height:1.7}
+.pill,.tag{border-radius:30px;padding:7px 12px;background:#f4e5ee;color:#906d83;font-size:11px}
+.hero{background:linear-gradient(110deg,#f2f1b2,#f5dceb 65%,#cbe5ce);
+border-radius:22px;padding:27px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.hero p{font-size:13px;line-height:1.7;margin:0}
+.hero-art{font-size:60px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+.stat,.card{background:white;border:1px solid #f0e8eb;border-radius:17px;padding:17px}
+.stat strong{display:block;font-size:24px;color:#765e7a;margin:8px 0}
+.stat span{font-size:12px;color:var(--muted)}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:22px 0 12px}
+.section-head h3{margin:0}
+.levels,.quick,.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.level{border:0;border-radius:17px;padding:18px;text-align:left;color:#66596b}
+.level strong{display:block;font-size:26px;margin-bottom:5px}
+.quick{grid-template-columns:repeat(3,1fr)}
+.quick button{background:white;border:1px solid #f0e8eb;border-radius:15px;padding:15px;text-align:left;color:var(--ink)}
+.quick b{display:block;margin:8px 0 4px;font-size:13px}
+.quick span{font-size:11px;color:var(--muted)}
+.page{display:none}.page.active{display:block}
+.card{margin:12px 0}
+.btn{border:0;border-radius:12px;padding:11px 16px;background:#e9cddd;color:#76536e;font-weight:bold}
+.btn:hover{filter:brightness(.97)}
+.btn.secondary{background:#e4f0e2;color:#56745c}
+.btn.blue{background:#e2eff7;color:#55748b}
+.field{padding:10px 12px;border:1px solid #eadfe8;border-radius:10px;background:white;color:var(--ink)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.word{font-size:38px;text-align:center;color:#6d5873;margin:12px}
+.reading{text-align:center;color:#a17d96}
+.meaning{text-align:center;font-weight:bold;margin:10px}
+.example{background:#fff8fb;padding:13px;border-radius:12px;line-height:1.8;margin:12px 0}
+.option{display:block;width:100%;text-align:left;border:1px solid #eee3eb;
+background:white;border-radius:12px;padding:12px;margin:8px 0;color:var(--ink)}
+.option:hover{background:#fff7fb}
+.option.correct{background:#eaf5e8;border-color:#9cc49f}
+.option.wrong{background:#fff0ef;border-color:#e5aaa5}
+.progress{height:8px;background:#f1eaf0;border-radius:20px;overflow:hidden}
+.progress div{height:100%;background:#b8d7bd;width:0}
+.lesson{padding:12px 0;border-bottom:1px solid #f2edf0}
+footer{text-align:center;color:#ad98a8;font-size:11px;padding:30px}
+.mobile-nav{display:none}
+@media(max-width:760px){
+ .sidebar{display:none}.main{padding:17px 14px 85px}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .quick{grid-template-columns:repeat(2,1fr)}
+ .hero{padding:19px}.hero-art{font-size:40px}
+ .mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;
+ background:#f8eaf1;justify-content:space-around;padding:9px 3px;z-index:5}
+ .mobile-nav button{border:0;background:none;color:#765d70;font-size:10px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+ <div class="logo">🌸 MY JLPT MASTER<small>日本語を楽しく学ぼう</small></div>
+ <div class="nav-title">HỌC TẬP</div>
+ <button class="nav active" data-page="home">🏡 Tổng quan</button>
+ <button class="nav" data-page="vocab">🌷 Từ vựng</button>
+ <button class="nav" data-page="grammar">📖 Ngữ pháp</button>
+ <button class="nav" data-page="kanji">🈶 Kanji</button>
+ <button class="nav" data-page="kaiwa">💬 Kaiwa</button>
+ <button class="nav" data-page="reading">📚 Đọc hiểu</button>
+ <button class="nav" data-page="listening">🎧 Nghe hiểu</button>
+ <div class="nav-title">LUYỆN THI JLPT</div>
+ <button class="nav" data-page="mock">📝 Thi thử</button>
+ <button class="nav" data-page="tips">💡 Mẹo làm bài</button>
+ <div class="nav-title">THEO DÕI</div>
+ <button class="nav" data-page="review">💗 Ôn tập</button>
+ <button class="nav" data-page="stats">📊 Thống kê</button>
+ <button class="nav" data-page="backup">🎀 Sao lưu</button>
+</aside>
+
+<main class="main">
+<header class="top">
+ <div><div class="muted">GÓC HỌC TIẾNG NHẬT CỦA BẠN</div><h1 id="pageTitle">Chào mừng trở lại! 🌷</h1></div>
+ <span class="pill">🌸 MY JLPT MASTER</span>
+</header>
+
+<section class="page active" id="home">
+ <div class="hero">
+  <div><h2>こんにちは！ ✨</h2>
+   <p>Cùng học tiếng Nhật mỗi ngày nhé!<br>Kiên trì từng bước, chinh phục JLPT N5 đến N1.</p>
+   <p style="margin-top:14px"><span class="tag">Hành trình của bạn bắt đầu từ đây</span></p>
+  </div><div class="hero-art">🌸🐰</div>
+ </div>
+ <div class="stats">
+  <div class="stat">📚<strong id="wordCount">0</strong><span>Từ đã ôn</span></div>
+  <div class="stat">✏️<strong id="questionCount">0</strong><span>Câu đã làm</span></div>
+  <div class="stat">💗<strong id="correctCount">0</strong><span>Câu đúng</span></div>
+  <div class="stat">🌱<strong id="accuracy">0%</strong><span>Độ chính xác</span></div>
+ </div>
+ <div class="section-head"><h3>Chọn cấp độ</h3><span class="muted">N5 → N1</span></div>
+ <div class="levels">
+  <button class="level" style="background:#f2f1b2" data-goto="vocab"><strong>N5 🌱</strong>Nền tảng tiếng Nhật</button>
+  <button class="level" style="background:#cbe5ce" data-goto="vocab"><strong>N4 🍀</strong>Sơ cấp nâng cao</button>
+ </div>
+ <div class="section-head"><h3>Học gì hôm nay?</h3></div>
+ <div class="quick">
+  <button data-goto="vocab">🌷<b>Từ vựng</b><span>Học từ mới theo bài</span></button>
+  <button data-goto="grammar">📖<b>Ngữ pháp</b><span>Hiểu cấu trúc câu</span></button>
+  <button data-goto="kanji">🈶<b>Kanji</b><span>Đọc và ghi nhớ chữ</span></button>
+  <button data-goto="kaiwa">💬<b>Kaiwa</b><span>Luyện hội thoại</span></button>
+  <button data-goto="mock">📝<b>Thi thử</b><span>Kiểm tra kiến thức</span></button>
+  <button data-goto="review">💗<b>Ôn tập</b><span>Nhớ lâu mỗi ngày</span></button>
+ </div>
+</section>
+
+<section class="page" id="vocab">
+ <div class="hero"><div><h2>🌷 Vườn từ vựng</h2><p>Học từ vựng theo cấp độ và bài học.</p></div><div class="hero-art">📒</div></div>
+ <div class="card">
+  <div class="row"><label>Cấp độ</label><select id="vLevel" class="field"><option>N5</option><option>N4</option></select>
+  <label>Nhóm</label><select class="field"><option>Tất cả</option><option>Minna no Nihongo</option><option>Katakana</option><option>Bổ sung</option></select></div>
+  <p class="muted">Các từ bên dưới là dữ liệu minh họa ban đầu, chưa phải danh sách đầy đủ theo từng bài giáo trình.</p>
+  <div class="word" id="vWord">学生</div><div class="reading" id="vReading">がくせい</div>
+  <div class="meaning" id="vMeaning">Học sinh · Sinh viên</div>
+  <div class="row" style="justify-content:center;margin-top:18px">
+   <button class="btn secondary" id="prevWord">← Trước</button>
+   <button class="btn" id="nextWord">Từ tiếp theo →</button>
+  </div>
+  <p class="muted" style="text-align:center" id="wordPosition">1 / 5</p>
+ </div>
+</section>
+
+<section class="page" id="grammar">
+ <div class="hero"><div><h2>📖 Khu vườn ngữ pháp</h2><p>Học tên mẫu câu, cấu trúc, cách dùng và ví dụ.</p></div><div class="hero-art">✏️</div></div>
+ <div class="card">
+  <span class="tag">N5 · Trợ từ</span>
+  <h3>Trợ từ に – Chỉ thời điểm</h3>
+  <div class="example"><b>Cấu trúc:</b><br>Danh từ chỉ thời gian + に + Động từ</div>
+  <p><b>Ý nghĩa:</b> Vào lúc…, vào ngày…, vào thời điểm…</p>
+  <p><b>Cách dùng:</b> Dùng に sau danh từ chỉ thời điểm cụ thể để xác định khi nào hành động xảy ra.</p>
+  <div class="example"><b>Ví dụ:</b><br>6時に起きます。<br>ろくじに おきます。<br>Tôi thức dậy lúc 6 giờ.</div>
+  <h3>Lưu ý</h3>
+  <p>Thường dùng に với 6時, 7時, 月曜日, 4月. Không dùng に với các từ như 今日, 明日, 毎日 trong cách dùng thời gian thông thường.</p>
+  <h3>Phân biệt đáp án</h3>
+  <p>を: đánh dấu đối tượng của hành động.</p>
+  <p>で: thường chỉ địa điểm diễn ra hành động hoặc phương tiện.</p>
+  <p>が: đánh dấu chủ ngữ trong nhiều cấu trúc.</p>
+ </div>
+</section>
+
+<section class="page" id="kanji">
+ <div class="hero"><div><h2>🈶 Góc Kanji</h2><p>Ghi nhớ chữ Hán qua cách đọc và từ ví dụ.</p></div><div class="hero-art">🌸</div></div>
+ <div class="card" style="text-align:center">
+  <div class="word">水</div><div class="reading">みず · スイ</div><h3>Nước</h3>
+  <div class="example">水曜日（すいようび）– Thứ Tư<br>水（みず）– Nước</div>
+  <span class="tag">Ví dụ minh họa N5</span>
+ </div>
+</section>
+
+<section class="page" id="kaiwa">
+ <div class="hero"><div><h2>💬 Kaiwa – Hội thoại</h2><p>Đọc, hiểu và thực hành hội thoại hai vai.</p></div><div class="hero-art">🐻</div></div>
+ <div class="card">
+  <span class="tag">Chủ đề: Chào hỏi</span>
+  <div class="example"><b>A:</b> おはようございます。<br><span class="muted">おはようございます。</span><br>Chào buổi sáng.</div>
+  <div class="example"><b>B:</b> おはようございます。<br><span class="muted">おはようございます。</span><br>Chào buổi sáng.</div>
+  <button class="btn" id="roleButton">▶ Luyện hội thoại hai vai</button>
+  <p id="roleMessage" class="muted"></p>
+  <p class="muted">Audio và các bài hội thoại mở rộng sẽ được bổ sung trong các phiên bản tiếp theo.</p>
+ </div>
+</section>
+
+<section class="page" id="reading">
+ <div class="hero"><div><h2>📚 Đọc hiểu</h2><p>Luyện đọc từ đoạn ngắn đến bài đọc JLPT.</p></div><div class="hero-art">📖</div></div>
+ <div class="card"><h3>Khu vực đọc hiểu</h3><p>Bài đọc theo cấp độ N5, N4, từ mới, câu hỏi và giải thích đáp án.</p><span class="tag">Đang chờ bổ sung học liệu</span></div>
+</section>
+
+<section class="page" id="listening">
+ <div class="hero"><div><h2>🎧 Nghe hiểu</h2><p>Luyện nghe theo cấp độ và chế độ thi.</p></div><div class="hero-art">🎵</div></div>
+ <div class="card"><h3>Hai chế độ nghe</h3><p>📗 Chế độ học: nghe lại, xem lời thoại và bản dịch.</p><p>📝 Chế độ thi: giới hạn phát theo cấu hình đề.</p><span class="tag">Audio sẽ được bổ sung</span></div>
+</section>
+
+<section class="page" id="mock">
+ <div class="hero"><div><h2>📝 Thi thử JLPT</h2><p>Thử sức với câu hỏi mẫu N5.</p></div><div class="hero-art">🏆</div></div>
+ <div class="card">
+  <div class="row"><span class="tag">N5 · Ngữ pháp</span><span class="muted" id="quizProgress">Câu 1 / 5</span></div>
+  <div class="progress"><div id="quizBar"></div></div>
+  <h3 id="question">毎朝6時（　）起きます。</h3>
+  <div id="options"></div>
+  <div id="feedback" class="example" style="display:none"></div>
+  <button class="btn" id="nextQuestion">Câu tiếp theo →</button>
+  <p class="muted">Đây là bài luyện tập minh họa, không phải đề JLPT chính thức.</p>
+ </div>
+</section>
+
+<section class="page" id="tips">
+ <div class="hero"><div><h2>💡 Mẹo làm bài JLPT</h2><p>Chiến thuật có căn cứ, không đoán mò.</p></div><div class="hero-art">⭐</div></div>
+ <div class="card"><h3>Dạng bài trợ từ</h3>
+ <div class="lesson"><b>1. Xác định từ đứng trước chỗ trống</b><p class="muted">Đó là danh từ chỉ thời gian, địa điểm hay đối tượng?</p></div>
+ <div class="lesson"><b>2. Nhớ cấu trúc ngữ pháp</b><p class="muted">Đối chiếu với mẫu câu đã học.</p></div>
+ <div class="lesson"><b>3. Loại trừ đáp án</b><p class="muted">Kiểm tra ý nghĩa và chức năng của từng trợ từ.</p></div>
+ </div>
+</section>
+
+<section class="page" id="review">
+ <div class="hero"><div><h2>💗 Ôn tập thông minh</h2><p>Biến lỗi sai thành cơ hội tiến bộ.</p></div><div class="hero-art">🌱</div></div>
+ <div class="card"><h3>Tiến độ ôn tập</h3><p>Câu hỏi đã làm: <b id="reviewDone">0</b></p><p>Câu trả lời đúng: <b id="reviewCorrect">0</b></p><p class="muted">Phiên bản tiếp theo sẽ bổ sung danh sách lỗi sai, phân loại kỹ năng và lịch ôn tập lặp lại ngắt quãng.</p></div>
+</section>
+
+<section class="page" id="stats">
+ <div class="hero"><div><h2>📊 Thống kê học tập</h2><p>Theo dõi hành trình tiến bộ của bạn.</p></div><div class="hero-art">📈</div></div>
+ <div class="card"><h3>Kết quả hiện tại</h3><p>Từ đã ôn: <b id="statsWords">0</b></p><p>Câu đã làm: <b id="statsQuestions">0</b></p><p>Độ chính xác: <b id="statsAccuracy">0%</b></p><div class="progress"><div id="statsBar"></div></div></div>
+</section>
+
+<section class="page" id="backup">
+ <div class="hero"><div><h2>🎀 Sao lưu dữ liệu</h2><p>Bảo vệ tiến độ học tập của bạn.</p></div><div class="hero-art">💾</div></div>
+ <div class="card"><h3>Xuất dữ liệu học tập</h3><p class="muted">Tải xuống bản sao lưu thống kê của trình duyệt này.</p><button class="btn" id="exportData">Tải bản sao lưu JSON</button><hr style="border:0;border-top:1px solid #eee;margin:20px 0"><h3>Khôi phục dữ liệu</h3><input type="file" id="importFile" accept=".json"><p class="muted">Chỉ nhập tệp sao lưu được tạo từ MY JLPT MASTER.</p></div>
+</section>
+<footer>🌸 MY JLPT MASTER · 一歩ずつ頑張ろう！</footer>
+</main>
+</div>
+
+<nav class="mobile-nav">
+ <button data-goto="home">🏡<br>Tổng quan</button>
+ <button data-goto="vocab">🌷<br>Từ vựng</button>
+ <button data-goto="mock">📝<br>Thi thử</button>
+ <button data-goto="kaiwa">💬<br>Kaiwa</button>
+ <button data-goto="stats">📊<br>Thống kê</button>
+</nav>
+
+<script>
+const pages=['home','vocab','grammar','kanji','kaiwa','reading','listening','mock','tips','review','stats','backup'];
+const titles={home:'Chào mừng trở lại! 🌷',vocab:'Vườn từ vựng 🌷',grammar:'Khu vườn ngữ pháp 📖',kanji:'Góc Kanji 🈶',kaiwa:'Luyện hội thoại 💬',reading:'Đọc hiểu 📚',listening:'Nghe hiểu 🎧',mock:'Thi thử JLPT 📝',tips:'Mẹo làm bài 💡',review:'Ôn tập thông minh 💗',stats:'Thống kê học tập 📊',backup:'Sao lưu dữ liệu 🎀'};
+function go(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+ document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+ document.getElementById('pageTitle').textContent=titles[id];
+ window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.page)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.goto)));
+
+let saved={words:0,questions:0,correct:0};
+try{saved={...saved,...JSON.parse(localStorage.getItem('mjm-progress')||'{}')}}catch(e){}
+function persist(){localStorage.setItem('mjm-progress',JSON.stringify(saved));updateStats()}
+function updateStats(){
+ const accuracy=saved.questions?Math.round(saved.correct/saved.questions*100):0;
+ ['wordCount','statsWords'].forEach(id=>document.getElementById(id).textContent=saved.words);
+ ['questionCount','statsQuestions','reviewDone'].forEach(id=>document.getElementById(id).textContent=saved.questions);
+ ['correctCount','reviewCorrect'].forEach(id=>document.getElementById(id).textContent=saved.correct);
+ ['accuracy','statsAccuracy'].forEach(id=>document.getElementById(id).textContent=accuracy+'%');
+ document.getElementById('statsBar').style.width=accuracy+'%';
+}
+updateStats();
+
+const words=[
+ ['学生','がくせい','Học sinh · Sinh viên'],
+ ['先生','せんせい','Giáo viên'],
+ ['学校','がっこう','Trường học'],
+ ['水','みず','Nước'],
+ ['本','ほん','Sách']
+];
+let wi=0;
+function showWord(){
+ document.getElementById('vWord').textContent=words[wi][0];
+ document.getElementById('vReading').textContent=words[wi][1];
+ document.getElementById('vMeaning').textContent=words[wi][2];
+ document.getElementById('wordPosition').textContent=(wi+1)+' / '+words.length;
+}
+document.getElementById('nextWord').onclick=()=>{wi=(wi+1)%words.length;saved.words++;persist();showWord()};
+document.getElementById('prevWord').onclick=()=>{wi=(wi-1+words.length)%words.length;showWord()};
+showWord();
+
+document.getElementById('roleButton').onclick=()=>{
+ const el=document.getElementById('roleMessage');
+ el.textContent=el.textContent?'A: おはようございます。':'B: おはようございます。';
+};
+
+const quiz=[
+ {q:'毎朝6時（　）起きます。',a:['を','に','で','が'],correct:1,why:'に chỉ thời điểm cụ thể. 6時 là thời điểm thức dậy.'},
+ {q:'わたしは学生（　）。',a:['です','ます','でしたか','ません'],correct:0,why:'です dùng để kết thúc câu danh từ, mang nghĩa là.'},
+ {q:'これは（　）の本ですか。',a:['だれ','どこ','いつ','いくら'],correct:0,why:'だれ hỏi về người: Đây là sách của ai?'},
+ {q:'毎日、日本語（　）勉強します。',a:['を','に','へ','が'],correct:0,why:'を đánh dấu đối tượng của hành động học.'},
+ {q:'学校（　）行きます。',a:['を','で','へ','が'],correct:2,why:'へ chỉ hướng di chuyển đến trường.'}
+];
+let qi=0,answered=false;
+function renderQuiz(){
+ const q=quiz[qi];answered=false;
+ document.getElementById('question').textContent=q.q;
+ document.getElementById('quizProgress').textContent=`Câu ${qi+1} / ${quiz.length}`;
+ document.getElementById('quizBar').style.width=(qi/quiz.length*100)+'%';
+ document.getElementById('feedback').style.display='none';
+ document.getElementById('options').innerHTML='';
+ q.a.forEach((a,i)=>{
+  const b=document.createElement('button');b.className='option';b.textContent=String.fromCharCode(65+i)+'. '+a;
+  b.onclick=()=>{
+   if(answered)return;answered=true;saved.questions++;
+   const ok=i===q.correct;if(ok)saved.correct++;persist();
+   b.classList.add(ok?'correct':'wrong');
+   document.getElementById('feedback').style.display='block';
+   document.getElementById('feedback').innerHTML='<b>'+(ok?'Chính xác! 🌸':'Chưa chính xác nhé!')+'</b><br>Đáp án: '+String.fromCharCode(65+q.correct)+'. '+q.a[q.correct]+'<br>'+q.why;
+   document.querySelectorAll('.option').forEach(x=>x.disabled=true);
+  };
+  document.getElementById('options').appendChild(b);
+ });
+}
+document.getElementById('nextQuestion').onclick=()=>{
+ if(!answered){document.getElementById('feedback').style.display='block';document.getElementById('feedback').textContent='Cậu hãy chọn một đáp án trước nhé!';return}
+ qi=(qi+1)%quiz.length;renderQuiz();
+};
+renderQuiz();
+
+document.getElementById('exportData').onclick=()=>{
+ const blob=new Blob([JSON.stringify(saved,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);const a=document.createElement('a');
+ a.href=url;a.download='my-jlpt-master-backup.json';a.click();URL.revokeObjectURL(url);
+};
+document.getElementById('importFile').onchange=async e=>{
+ const file=e.target.files[0];if(!file)return;
+ try{
+  const data=JSON.parse(await file.text());
+  if(!Number.isFinite(data.words)||!Number.isFinite(data.questions)||!Number.isFinite(data.correct)||data.words<0||data.questions<0||data.correct<0||data.correct>data.questions)throw Error();
+  saved=data;persist();alert('Khôi phục dữ liệu thành công!');
+ }catch(err){alert('Tệp sao lưu không hợp lệ.');}
+};
+</script>
+</body>
+</html>
